@@ -1,7 +1,5 @@
-// P6Q1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+
 float pnt_f = 0.5;
 float two = 2.0;
 
@@ -29,55 +27,44 @@ void question() {
 }
 
 void Display() {
-    std::cout << "Triangle" << std::endl;
-    std::cout << "      Area.........................................." << t_area << std:: endl;
-    std::cout << "      Perimeter................................" << t_perimeter << std:: endl;
-    std::cout << "Rectangle" << std::endl;
-    std::cout << "      Area........................................" << rec_area << std::endl;
-    std::cout << "      Perimeter ..............................." << rec_perimeter << std:: endl;
+    std::cout << "      Triangle" << std::endl;
+    std::cout << "              Area.........................................." << t_area << std:: endl;
+    std::cout << "              Perimeter....................................." << t_perimeter << std:: endl;
+    std::cout << "      Rectangle" << std::endl;
+    std::cout << "              Area.........................................." << rec_area << std::endl;
+    std::cout << "              Perimeter ...................................." << rec_perimeter << std:: endl;
 }
 
 int main()
 {
     _asm {
-        call question;
-        fld c;
-        fld h;
-        fmul;
-        fld pnt_f;
-        fmul;
-        fstp t_area;
+        call question;      // Call 'question()' to print question
+        fld c;              // s[0] = c
+        fld h;              // s[0] = c, s[1] = h
+        fmul;               // st[0] = ch
+        fld pnt_f;          // st[0] = pnt_f, st[1] = ch
+        fmul;               // st[0] = pnt_f(ch)
+        fstp t_area;        // t_area = pnt_f(ch)
 
-        fld a;
-        fld b;
-        fadd;
-        fld c;
-        fadd;
-        fstp t_perimeter;
+        fld a;              // st[0] = a
+        fld b;              // st[0] = b, st[1] = a
+        fadd;               // st[0] = a+b
+        fld c;              // st[0] = c, st[1] = a+b
+        fadd;               // st[0] = (a+b)+c
+        fstp t_perimeter;   // t_perimeter = (a+b)+c
 
-        fld l;
-        fld width;
-        fmul;
-        fstp rec_area;
+        fld l;              // st[0] = l
+        fld width;          // st[0] = width, st[1] = l
+        fmul;               // st[0] = (l)(width)
+        fstp rec_area;      // rec_area = (l)(width)
 
-        fld width;
-        fld l;
-        fadd;
-        fld two;
-        fmul;
-        fstp rec_perimeter;
+        fld width;          // st[0] = width
+        fld l;              // st[0] = l, st[1] = width
+        fadd;               // st[0] = width + l
+        fld two;            // st[0] = two, st[1] = width + 1
+        fmul;               // st[0] = two(width + 1)
+        fstp rec_perimeter; // rec_perimeter = two(width + 1)
 
-        call Display;
+        call Display;       // Call 'Display()' to print output
     }
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
