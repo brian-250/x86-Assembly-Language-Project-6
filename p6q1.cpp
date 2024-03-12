@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 
 float pnt_f = 0.5;
 float two = 2.0;
@@ -27,6 +28,7 @@ void question() {
 }
 
 void Display() {
+    std::cout << std::fixed << std::showpoint << std::setprecision(2);
     std::cout << "      Triangle" << std::endl;
     std::cout << "              Area.........................................." << t_area << std:: endl;
     std::cout << "              Perimeter....................................." << t_perimeter << std:: endl;
